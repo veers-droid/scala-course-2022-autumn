@@ -36,30 +36,67 @@ import scala.annotation.tailrec
  * For more details @see https://en.wikipedia.org/wiki/Kolakoski_sequence
  */
 
-object Homework :
+object Homework:
 
-  object `Boolean Operators` :
+  object `Boolean Operators`:
 
-    def not(b: Boolean): Boolean = ??? // here is my greatest solution
+    def not(b: Boolean): Boolean = b match {
+      case true => false
+      case _ => true
+    }
+      
+    def and(left: Boolean, right: Boolean): Boolean = left match {
+        case false => false
+        case _ => right match {
+          case false => false
+          case _ => true
+        }
+      }
+    
 
-    def and(left: Boolean, right: Boolean): Boolean = ???
-
-    def or(left: Boolean, right: Boolean): Boolean = ???
+    def or(left: Boolean, right: Boolean): Boolean = left match {
+      case true => true
+      case _ => right match {
+        case true => true
+        case _ => false
+      }
+    }
 
   end `Boolean Operators`
 
-  object `Fermat Numbers` :
+  object `Fermat Numbers`:
 
-    val multiplication: (BigInt, BigInt) => BigInt = ???
+    val multiplication: (BigInt, BigInt) => BigInt = (x, y) => {
+      def mult(x: BigInt, y: BigInt, acum: BigInt): BigInt = y match {
+        case 0 => acum
+        case _ => mult(x, y - 1, acum + x)
+      }
 
-    val power: (BigInt, BigInt) => BigInt = ???
+      mult(x, y, 0)
+    }
 
-    val fermatNumber: Int => BigInt = ???
+    val power: (BigInt, BigInt) => BigInt = (x, y) => {
+      def toPower(x:BigInt, y:BigInt, acum:BigInt): BigInt = y match {
+        case 0 => acum
+        case _ => toPower(x, y - 1, multiplication(acum, x))
+      }
+
+      toPower(x, y, 1)
+    }
+
+    val fermatNumber: Int => BigInt = (n) => power(2, power(2, n)) + 1
+    
 
   end `Fermat Numbers`
 
-  object `Look-and-say Sequence` :
-    val lookAndSaySequenceElement: Int => BigInt = ???
+  object `Look-and-say Sequence`:
+    val lookAndSaySequenceElement: Int => BigInt = (n) => {
+    	n match {
+        case 1 => 1
+        case 2 => 11
+      }
+      
+    }
 
   end `Look-and-say Sequence`
 
